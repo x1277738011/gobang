@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>游戏房间</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/game_room.css">
+</head>
+<style>
+    .container {
+        /* 使用 calc 计算高度 */
+        height: calc(100% - 50px);
+        /* 设置版心宽度 */
+        width: fit-content;
+        /* 水平居中 */
+        margin: 0 auto;
+        /* 使用弹性布局 */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+</style>
+<body>
+<div class="nav">
+    <img src="../img/blog-ys.jpg" alt="">
+    <span>五子棋对战</span>
+    <!-- 空白元素, 用来占位置 -->
+    <div class="spacer"></div>
+    <a href="javascript:void (0); onclick=logout();">注销</a>
+    <!-- 注销按钮没必要在登录页面展示 -->
+    <!-- <a href="#">注销</a> -->
+</div>
+<div class="container">
+    <div>
+        <!-- 棋盘区域, 需要基于 canvas 进行实现 -->
+        <canvas id="chess" width="450px" height="450px">
+
+        </canvas>
+        <!-- 显示区域 -->
+        <div id="screen"> 等待玩家连接中... </div>
+    </div>
+</div>
+<script src="../js/script.js"></script>
+<script src="../js/jquery.min.js"></script>
+</body>
+</html>

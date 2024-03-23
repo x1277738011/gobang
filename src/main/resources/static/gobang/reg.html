@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册页面</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <script src="../js/jquery.min.js"></script>
+</head>
+<style>
+    .login-dialog .row{
+        height: 55px;
+    }
+</style>
+<body>
+<div class="nav">
+    <!--  导航栏  -->
+    <img src="../img/blog-ys.jpg" alt="">
+    <span class="title">五子棋</span>
+    <!--        -->
+    <div class="spacer"></div>
+    <a href="login.html">登录</a>
+</div>
+<!-- 版心 -->
+<div class="login-container">
+    <!-- 中间的注册框 -->
+    <div class="login-dialog">
+        <h3>注册</h3>
+        <div class="row">
+            <span>用户名</span>
+            <input type="text" id="username">
+        </div>
+        <div class="row">
+            <span>密码</span>
+            <input type="password" id="password">
+        </div>
+        <div class="row">
+            <span>确认密码</span>
+            <input type="password" id="password2">
+        </div>
+        <div class="row">
+            <button id="submit" onclick="mysub();">提交</button>
+        </div>
+    </div>
+</div>
+<script>
+    mysub = function(){
+        // 非空校验
+        var username = jQuery("#username");
+        var password = jQuery("#password");
+        var password2 = jQuery("#password2");
+        if(username.val()==""){
+            alert("请先输入用户名！");
+            username.focus();
+            return ;
+        }
+        if(password.val()==""){
+            password.focus();
+            alert("请先输入密码！");
+            return ;
+        }
+        if(password2.val()==""){
+            password2.focus();
+            alert("请输入确认密码！");
+            return ;
+        }
+        // 判断两次密码是否一致
+        if(password.val()!=password2.val()){
+            alert("两次密码输入不一致，请先进行检查！");
+            password.focus();
+            return ;
+        }
+        // ajax请求
+        jQuery.ajax({
+            url:"/gobang/reg",
+            type:"POST",
+            data:{"username":username.val(),"password":password.val()},
+            success:function(result){
+                if(result!=null && result.code==200){
+                    if(result.data==1){
+                        if(confirm("恭喜：注册成功！是否要跳转到登录页面？")){
+                            location.href="/login.html";
+                        }
+                    }else if(result.data==-1){
+                        alert("用户名已被注册，请更换用户名！");
+                        username.val("");
+                        username.focus();
+                    }
+                }else{
+                    alert("抱歉执行失败，请稍后再试！");
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>
